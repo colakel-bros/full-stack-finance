@@ -1,3 +1,4 @@
+/* eslint-disable spaced-comment */
 /// <reference types="cypress" />
 
 // ***********************************************
@@ -20,7 +21,7 @@ declare namespace Cypress {
 
 // -- This is a parent command --
 Cypress.Commands.add('login', (email, password) => {
-  console.log('Custom command example: Login', email, password);
+  window.console.log('Custom command example: Login', email, password);
 });
 //
 // -- This is a child command --

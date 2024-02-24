@@ -1,3 +1,11 @@
+/* eslint-disable func-names */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const { resolve } = require('path');
@@ -7,12 +15,10 @@ const { resolve } = require('path');
  */
 module.exports = async function (env, argv) {
   const config = await createExpoWebpackConfigAsync(env, argv);
-
   // Customize the config before returning it.
   // add additional rule to load files under libs
-  const rules = config.module.rules.find((rule) =>
-    Array.isArray(rule.oneOf)
-  )?.oneOf;
+  const rules = config.module.rules.find((rule) => Array.isArray(rule.oneOf))?.oneOf;
+
   if (rules) {
     rules.push({
       test: /\.(mjs|[jt]sx?)$/,
@@ -36,16 +42,19 @@ module.exports = async function (env, argv) {
   if (!config.resolve) {
     config.resolve = {};
   }
+
   if (!config.resolve.plugins) {
     config.resolve.plugins = [];
   }
-  const extensions = ['.ts', '.tsx', '.mjs', '.js', '.jsx'];
+
+  const extensions = [ '.ts', '.tsx', '.mjs', '.js', '.jsx' ];
   const tsConfigPath = resolve(__dirname, 'tsconfig.json');
+
   config.resolve.plugins.push(
     new TsconfigPathsPlugin({
       configFile: tsConfigPath,
       extensions,
-    })
+    }),
   );
   config.resolve.fallback = {
     ...config.resolve.fallback,
